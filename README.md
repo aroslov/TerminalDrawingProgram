@@ -2,7 +2,7 @@
 
 Requirements:
 
-- Node 4+, download from https://nodejs.org/en/
+- Node 4+, download from https://nodejs.org/en/ or use Docker image https://hub.docker.com/r/library/node/
 
 # Code Structure
 
