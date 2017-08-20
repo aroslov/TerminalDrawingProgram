@@ -5,7 +5,7 @@ export class Canvas extends Rectangle {
     children: Array<Rectangle> = [];
 
     constructor(private _width: number, private _height: number) {
-        super(0, 0, _width+1, _height+1); // append the borders
+        super(1, 1, _width, _height, 1); // append the borders
     }
 
     public get width(): number {

@@ -7,7 +7,7 @@ export class Rectangle {
     private _x2: number;
     private _y2: number;
 
-    constructor(x1: number, y1: number, x2: number, y2: number) {
+    constructor(x1: number, y1: number, x2: number, y2: number, private border: number = 0) {
         this._x1 = min(x1, x2);
         this._x2 = max(x1, x2);
         this._y1 = min(y1, y2);
@@ -43,11 +43,11 @@ export class Rectangle {
     }
 
     public isOnTheBorder(point: Point): boolean {
-        if ((point.x == this.x1) || (point.x == this.x2)) {
-            return (point.y >= this.y1) && (point.y <= this.y2);
+        if ((point.x == this.x1-this.border) || (point.x == this.x2+this.border)) {
+            return (point.y >= this.y1-this.border) && (point.y <= this.y2+this.border);
         }
-        if ((point.y == this.y1) || (point.y == this.y2)) {
-            return (point.x >= this.x1) && (point.x <= this.x2);
+        if ((point.y == this.y1-this.border) || (point.y == this.y2+this.border)) {
+            return (point.x >= this.x1-this.border) && (point.x <= this.x2+this.border);
         }
         return false;
     }

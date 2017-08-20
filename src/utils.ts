@@ -1,16 +1,16 @@
-export function min(x: number, y:number) : number {
-    return x < y ? x : y;
+export function min(a: number, b:number) : number {
+    return a < b ? a : b;
 }
 
-export function max(x: number, y:number) : number {
-    return x > y ? x : y;
+export function max(a: number, b:number) : number {
+    return a > b ? a : b;
 }
 
-export function abs(x: number) : number {
-    return x < 0 ? -x : x;
+export function abs(a: number) : number {
+    return a < 0 ? -a : a;
 }
 
 export function assertPositive(value: number, name : string) {
     if (value <= 0)
-        throw `{name} must be positive`
+        throw `${name} must be positive`
 }

@@ -2,8 +2,8 @@ import {TerminalDrawer} from "./drawer";
 import {Rectangle} from "./models/rectangle";
 import {Point} from "./models/point";
 import {assertPositive} from "./utils";
-import {Canvas} from "models/canvas";
-import {Line} from "models/line";
+import {Canvas} from "./models/canvas";
+import {Line} from "./models/line";
 
 const CANVAS_RE = /^\s*C\s+(\d+)\s+(\d+)\s*$/i;
 const LINE_RE = /^\s*L\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s*$/i;
@@ -18,42 +18,42 @@ export class InputController {
     readonly commands: Array<any> = [
         {
             re: CANVAS_RE,
-            func: this.onCanvas
+            func: (parmas) => this.onCanvas(parmas)
         },
         {
             re: LINE_RE,
-            func: this.onLine
+            func: (parmas) => this.onLine(parmas)
         },
         {
             re: RECTANGLE_RE,
-            func: this.onRectangle
+            func: (parmas) => this.onRectangle(parmas)
         },
         {
             re: FILL_RE,
-            func: this.onFill
+            func: (parmas) => this.onFill(parmas)
         },
         {
             re: QUIT_RE,
-            func: this.onQuit
+            func: (parmas) => this.onQuit()
         },
-    ]
+    ];
 
     constructor(private drawer: TerminalDrawer) {
-        drawer.onSubmitInput(this.processUserInput);
-        drawer.onInputKey('up', this.onKeyUp);
-        drawer.onInputKey('up', this.onKeyDown);
     }
 
     public start() {
         this.drawer.drawPrompt('Enter command: ');
         this.drawer.drawHelp();
+        this.drawer.onSubmitInput(text => this.processUserInput(text));
+        this.drawer.onInputKey('up', () => this.onKeyUp());
+        this.drawer.onInputKey('down', () => this.onKeyDown());
     }
 
     processUserInput(text: string) : void {
         this.drawer.setErrorText('');
         this.storePreviousInput(text);
         try {
-            if (!this.commands.find(c => this.checkAndRunCommand(text, c.re, c.func)))
+            if (!this.commands.find(c => InputController.checkAndRunCommand(text, c.re, c.func)))
                 this.drawer.setErrorText('Unrecognized input!')
         }
         catch(e) {
@@ -62,7 +62,7 @@ export class InputController {
         this.drawer.setUserInputValue();
     }
 
-    checkAndRunCommand(input: string, re: RegExp, command: (parameters: Array<string>) => void) : boolean {
+    static checkAndRunCommand(input: string, re: RegExp, command: (parameters: Array<string>) => void) : boolean {
         let match = input.match(re);
         if (!match) return false;
         match.shift();
@@ -75,7 +75,7 @@ export class InputController {
             this.unfinishedInput = this.drawer.getInputValue();
         }
         if (this.lastInputIndex < 0) return;
-        this.showPreviousInput(this.lastInputIndex);
+        this.showPreviousInput();
         if (this.lastInputIndex) this.lastInputIndex--;
     }
 
@@ -87,7 +87,7 @@ export class InputController {
             return;
         }
         this.lastInputIndex++;
-        this.showPreviousInput(this.lastInputIndex);
+        this.showPreviousInput();
     }
 
     storePreviousInput(text: string): void {
@@ -96,7 +96,7 @@ export class InputController {
         this.unfinishedInput = null;
     }
 
-    showPreviousInput(index: number): void {
+    showPreviousInput(): void {
         this.drawer.setUserInputValue(this.previousInputs[this.lastInputIndex]);
     }
 

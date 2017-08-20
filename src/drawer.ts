@@ -2,7 +2,7 @@ import blessed = require('blessed');
 import {Rectangle} from "./models/rectangle";
 import {Canvas} from "./models/canvas";
 import {Point} from "./models/point";
-import {Line} from "models/line";
+import {Line} from "./models/line";
 
 export class TerminalDrawer {
     screen: any;
@@ -23,7 +23,7 @@ export class TerminalDrawer {
             parent: this.screen,
             left: 0,
             bottom: 0,
-            width: 30,
+            width: '100%',
             height: 1,
             content: prompt
         });
@@ -89,7 +89,7 @@ export class TerminalDrawer {
             throw 'No canvas created, please create one first';
         let r = this.canvas.truncate(rect);
         if (!r)
-            throw 'Rectangle is outside the canvas';
+            throw `${rect instanceof Line?'Line':'Rectangle'} is outside the canvas`;
         blessed.box({
             parent: this.canvasBox,
             left: r.x1-1,
@@ -135,6 +135,8 @@ export class TerminalDrawer {
     drawCanvas(c: Canvas) {
         if (this.canvasBox)
             this.screen.remove(this.canvasBox);
+        else
+            this.hideHelp();
         this.canvas = c;
         this.canvasBox = blessed.box({
             parent: this.screen,
