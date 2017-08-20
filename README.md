@@ -11,7 +11,6 @@ Requirements:
 
 # Installing
 
-- Install dependencies
 ```
 #!bash
 
