@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "target": "es5",
+    "sourceMap": true,
+    "outDir": "build",
+    "baseUrl": "./src",
+    "lib": [
+      "dom",
+      "es6"
+    ],
+    "types": [
+      "node",
+      "source-map",
+      "mocha"
+    ]
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "name": "DrawingProgram",
+  "version": "0.0.1",
+  "dependencies": {
+    "@types/node": "^8.0.24",
+    "@types/source-map": "^0.5.1",
+    "blessed": "^0.1.81",
+    "ts-node": "^3.3.0",
+    "typescript": "^2.4.2"
+
+  },
+  "devDependencies": {
+    "@types/mocha": "^2.2.41",
+    "chai": "^4.1.1",
+    "mocha": "^3.5.0"
+  },
+  "scripts": {
+    "start": "ts-node src/main.ts",
+    "test": "mocha -r ts-node/register --recursive test/**/*.spec.ts"
+  }
+}
