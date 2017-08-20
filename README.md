@@ -12,8 +12,6 @@ Requirements:
 # Installing
 
 ```
-#!bash
-
 git clone https://github.com/aroslov/TerminalDrawingProgram
 cd TerminalDrawingProgram
 npm install
@@ -22,16 +20,12 @@ npm install
 # Running Tests
 
 ```
-#!bash
-
 npm run test
 ```
 
 # Running Application
 
 ```
-#!bash
-
 npm run start
 ```
 
